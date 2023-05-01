@@ -28,8 +28,8 @@ class Root extends HookWidget {
     ];
 
     final pages = [
-      const Placeholder(),
       const Record(),
+      const Placeholder(),
       const Firebase(),
     ];
 
