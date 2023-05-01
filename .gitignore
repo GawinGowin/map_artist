@@ -47,10 +47,10 @@ pubspec.lock
 .fvm/flutter_sdk
 
 # firebase関係
-**/firebase_options.dart
-**/google-services.json
-**/GoogleService-Info.plist
-**/firebase_app_id_file.json
+android/app/google-services.json
+ios/firebase_app_id_file.json
+ios/Runner/GoogleService-Info.plist
+lib/firebase_options.dart
 
 # GoogleMapAPIの保存先
 android/app/src/main/res/values/strings.xml
