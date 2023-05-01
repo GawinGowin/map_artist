@@ -14,16 +14,12 @@ class Root extends HookWidget {
     final index = useState(0);
     const items = [
       BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label:"ホーム"
-        ),
+        icon: Icon(Icons.folder),
+        label:"Data"
+        ),      
       BottomNavigationBarItem(
         icon: Icon(Icons.map),
         label:"Map"
-        ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.folder),
-        label:"Data"
         ),
       BottomNavigationBarItem(
         icon: Icon(Icons.language),
@@ -32,7 +28,6 @@ class Root extends HookWidget {
     ];
 
     final pages = [
-      const Home(),
       const Placeholder(),
       const Record(),
       const Firebase(),
