@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:map_artist/pages/home.dart';
 import 'package:map_artist/pages/map.dart';
 import 'package:map_artist/pages/record.dart';
+import 'package:map_artist/pages/firebase.dart';
 
 class Root extends HookWidget {
   const Root({super.key});
@@ -24,12 +25,17 @@ class Root extends HookWidget {
         icon: Icon(Icons.folder),
         label:"Data"
         ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.language),
+        label:"Firebase"
+        ),        
     ];
 
     final pages = [
-      Home(),
+      const Home(),
       const Placeholder(),
       const Record(),
+      const Firebase(),
     ];
 
     return Scaffold(
