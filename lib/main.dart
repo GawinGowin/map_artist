@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'dart:ui' as ui;
+import 'dart:convert';
+import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:map_artist/data/database.dart';
 import 'package:map_artist/providers/database_provider.dart';
 import 'package:map_artist/providers/app_theme_provider.dart';
@@ -14,6 +21,10 @@ Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   final dbHelper = DbHelper();
   await dbHelper.initialize();  
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   
   runApp(ProviderScope(
     overrides: [
