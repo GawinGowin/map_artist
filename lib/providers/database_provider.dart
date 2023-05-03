@@ -44,4 +44,8 @@ class PointsListState extends StateNotifier<List<ArtRecord>> {
         [record],
       );
   }
+  Future<void> delete(ArtRecord record) async {
+    await dbHelper.delete(record.key,);
+    state = state.sublist(0)..removeAt(record.key);
+  }
 }

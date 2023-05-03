@@ -48,7 +48,13 @@ class DbHelper {
 
   // "U" of "CRUD"
   Future<void> update(int key, PointsRecord points) async {
-    _store.record(key).put(_database, points.toJson());
+    await _store.record(key).put(_database, points.toJson());
+  }
+
+  // "D" of "CRUD"
+  Future<void> delete(int key) async {
+    int? keyDeleted = await _store.record(key).delete(_database,);
+    assert (keyDeleted == key);
   }
 }
 
