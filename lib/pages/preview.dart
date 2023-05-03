@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:map_artist/data/points.dart';
 import 'package:map_artist/utils.dart';
 
-class Preview extends StatelessWidget {
+import 'package:map_artist/providers/database_provider.dart';
+
+class Preview extends HookConsumerWidget {
   const Preview({super.key, required this.record});
   final ArtRecord record;
 
   @override
-  Widget build(BuildContext context) {
-    final points = record.value.points.toList();
-    final List<LatLng?> pointsListNullable = points.map((e) => LatLng.fromJson(e)).toList();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pointsValue = record.value.points.toList();
+    final List<LatLng?> pointsListNullable = pointsValue.map((e) => LatLng.fromJson(e)).toList();
     final List<LatLng> pointsList = [for (var value in pointsListNullable) if (value != null) value];
     final LatLng center = culcCenter(pointsList);
-    
+    final pointsListNotifier = ref.watch(pointsListProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 10,
@@ -24,7 +28,10 @@ class Preview extends StatelessWidget {
         title: Text(record.value.title),
         actions: [
           IconButton(
-            onPressed: (){},
+            onPressed: (){
+              pointsListNotifier.delete(record)
+              .then((_) => Navigator.pushNamed(context, "/root"));
+            },
             icon: const Icon(Icons.delete, color: Colors.black,),)
         ],
       ),

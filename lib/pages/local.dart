@@ -6,16 +6,18 @@ import 'package:intl/intl.dart';
 import 'package:map_artist/providers/database_provider.dart';
 import 'package:map_artist/pages/preview.dart';
 
+import 'package:map_artist/data/points.dart';
+
 class Local extends HookConsumerWidget {
   const Local({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final points = ref.watch(pointsListProvider);
-    final pointsNotifier = ref.watch(pointsListProvider.notifier);
+    final List<ArtRecord> points = ref.watch(pointsListProvider); // 全データの格納先
+    final PointsListState pointsNotifier = ref.watch(pointsListProvider.notifier); // 全データのCRUD処理を司るNotifier
 
     useEffect(() {
-      pointsNotifier.find();
+      pointsNotifier.find(); // ローカールDBから全データを取得：`List<ArtRecord> points` に格納
       return;
     }, []);
 
