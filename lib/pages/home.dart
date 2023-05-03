@@ -19,24 +19,27 @@ class Home extends StatelessWidget {
             SafeArea(
               child: Container(
                 alignment: Alignment.bottomCenter,
-                padding: const EdgeInsets.symmetric(vertical: 150),
+                padding: const EdgeInsets.symmetric(vertical: 130),
                 child: GestureDetector(
                   onTap: (){
                     Navigator.pushNamed(context, "/root");
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 4, style: BorderStyle.solid),
+                      color: Colors.black,
+                      border: Border.all(color: Colors.blueAccent.shade700, width: 6, style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(6)),
-                      child: Text("Next", style: TextStyle(
+                      child: const Text("START", style: TextStyle(
                         fontSize: 50,
-                        color:Colors.white, background: Paint()..color
+                        fontWeight: FontWeight.bold ,
+                        letterSpacing: 5.0,
+                        color:Colors.white,
+                      ),
                       ),),
                       ),
                   )
                 ),
-            ),
           ],
         )
       );
