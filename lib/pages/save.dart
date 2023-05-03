@@ -90,21 +90,17 @@ class SaveUI extends HookConsumerWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: inputText.value == ""
-                      ? null
-                      : () {
-                          pointsListNotifier
-                              .add(
-                                PointsRecord(
-                                    title: inputText.value,
-                                    points: pointsList,
-                                    createdAt: DateTime.now()),
-                              )
-                              .then((_) => ref
-                                  .read(pointsNotifierProvider.notifier)
-                                  .resetPointState())
-                              .then((_) => Navigator.pushNamed(context, "/"));
-                        },
+                  onPressed: inputText.value == "" ? null :
+                  () {
+                    pointsListNotifier.add(
+                      PointsRecord(
+                        title: inputText.value,
+                        points: pointsList,
+                        createdAt: DateTime.now()),
+                    ).then((_) => ref.read(pointsNotifierProvider.notifier)
+                    .resetPointState())
+                    .then((_) => Navigator.pushNamed(context, "/"));
+                  },
                   child: const Text("Save"),
                 ),
               ],
