@@ -4,6 +4,8 @@
 
 **日程終了後にコードを追加してアレンジしたもの。**
 
+現在追加開発中
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
