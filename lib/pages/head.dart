@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class Head extends StatelessWidget {
+  const Head({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
             Container(
               decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/home.png"),
+                image: AssetImage("assets/head.png"),
                 fit: BoxFit.fitHeight,
                 ),
               ),

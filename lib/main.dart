@@ -8,7 +8,7 @@ import 'package:map_artist/data/database.dart';
 import 'package:map_artist/providers/database_provider.dart';
 import 'package:map_artist/providers/app_theme_provider.dart';
 
-import 'package:map_artist/pages/home.dart';
+import 'package:map_artist/pages/head.dart';
 import 'package:map_artist/pages/root.dart';
 import 'package:map_artist/pages/map.dart';
 
@@ -41,7 +41,7 @@ class MapArtist extends StatelessWidget {
         return MaterialApp(
           initialRoute: "/",
           routes: {
-            "/": (context) => const Home(),
+            "/": (context) => const Head(),
             "/root": (context) => const Root(),
             "/map": (context) => const Map(),
           },

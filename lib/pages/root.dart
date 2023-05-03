@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'package:map_artist/pages/home.dart';
+import 'package:map_artist/pages/head.dart';
 import 'package:map_artist/pages/map.dart';
 import 'package:map_artist/pages/record.dart';
 import 'package:map_artist/pages/firebase.dart';
