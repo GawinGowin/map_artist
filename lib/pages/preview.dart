@@ -55,11 +55,20 @@ class Preview extends HookConsumerWidget {
         )},
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.cloud_upload),
-        onPressed: () async {
-          await databaseRef.set(
+        child: const Icon(Icons.cloud_upload),
+        onPressed: () {
+          databaseRef.set(
             record.value.toJson()
-          );
+          ).then((_) => ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Center(child: Text('Uploaded',)),
+              margin: EdgeInsets.symmetric(
+                  vertical: 50,
+                  horizontal: 50
+                ),
+              behavior: SnackBarBehavior.floating,
+              )
+          ));
         },
       ),
     );
