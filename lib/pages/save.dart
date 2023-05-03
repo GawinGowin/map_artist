@@ -99,7 +99,7 @@ class SaveUI extends HookConsumerWidget {
                         createdAt: DateTime.now()),
                     ).then((_) => ref.read(pointsNotifierProvider.notifier)
                     .resetPointState())
-                    .then((_) => Navigator.pushNamed(context, "/"));
+                    .then((_) => Navigator.pushNamed(context, "/home"));
                   },
                   child: const Text("Save"),
                 ),
