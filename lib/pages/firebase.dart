@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:map_artist/providers/app_theme_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Firebase extends HookConsumerWidget {
@@ -11,14 +10,6 @@ class Firebase extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textEditingController = useTextEditingController();
-
-    ThemeMode modeNow = ref.watch(appThemeNotifierProvider);
-    if (modeNow == ThemeMode.system){
-      bool isDarkMode = WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-      modeNow = isDarkMode ? ThemeMode.dark : ThemeMode.light;
-    }
-    IconData switchIcon = modeNow == ThemeMode.light ? Icons.dark_mode : Icons.light_mode;
-    ThemeMode modeNext = modeNow == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
 
     void fire() async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -34,20 +25,6 @@ class Firebase extends HookConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Firebase'),
-        centerTitle: true,
-        elevation: 10,
-        actions: [
-          IconButton(
-            icon: Icon(switchIcon),
-            onPressed: () {
-              ref.read(appThemeNotifierProvider.notifier).updateState(modeNext);
-            },
-          ),
-        ],
-      ),
-
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
