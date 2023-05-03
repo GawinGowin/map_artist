@@ -7,6 +7,8 @@ import 'package:map_artist/utils.dart';
 
 import 'package:map_artist/providers/database_provider.dart';
 
+import 'package:firebase_database/firebase_database.dart';
+
 class Preview extends HookConsumerWidget {
   const Preview({super.key, required this.record});
   final ArtRecord record;
@@ -18,6 +20,8 @@ class Preview extends HookConsumerWidget {
     final List<LatLng> pointsList = [for (var value in pointsListNullable) if (value != null) value];
     final LatLng center = culcCenter(pointsList);
     final pointsListNotifier = ref.watch(pointsListProvider.notifier);
+
+    final DatabaseReference databaseRef = FirebaseDatabase.instance.ref("artRecord/${record.key}");
 
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +53,15 @@ class Preview extends HookConsumerWidget {
           width: 3,
           points: pointsList,
         )},
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.cloud_upload),
+        onPressed: () async {
+          await databaseRef.set(
+            record.value.toJson()
+          );
+        },
+      ),
     );
   }
 }
