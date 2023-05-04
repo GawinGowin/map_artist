@@ -20,9 +20,11 @@ class Firebase extends HookConsumerWidget {
     var points = useState<Map<dynamic, dynamic>>({});
 
     subscription.value = databaseRef.onValue.listen((DatabaseEvent event) {
-        final Object? snapShot = event.snapshot.value;
-        Map<dynamic, dynamic> snapShotMap = (snapShot as Map).map((key, value) =>  MapEntry(key.toString(), value));
-        points.value = {...snapShotMap};
+        if (event.snapshot.value != null){
+          final Object? snapShot = event.snapshot.value;
+          Map<dynamic, dynamic> snapShotMap = (snapShot as Map).map((key, value) =>  MapEntry(key.toString(), value));
+          points.value = {...snapShotMap};
+        }
     });
 
     useEffect(() {
