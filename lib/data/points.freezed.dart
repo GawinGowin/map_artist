@@ -14,11 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+ArtRecord _$ArtRecordFromJson(Map<String, dynamic> json) {
+  return _ArtRecord.fromJson(json);
+}
+
 /// @nodoc
 mixin _$ArtRecord {
-  int get key => throw _privateConstructorUsedError;
+  String get key => throw _privateConstructorUsedError;
   PointsRecord get value => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ArtRecordCopyWith<ArtRecord> get copyWith =>
       throw _privateConstructorUsedError;
@@ -29,7 +34,7 @@ abstract class $ArtRecordCopyWith<$Res> {
   factory $ArtRecordCopyWith(ArtRecord value, $Res Function(ArtRecord) then) =
       _$ArtRecordCopyWithImpl<$Res, ArtRecord>;
   @useResult
-  $Res call({int key, PointsRecord value});
+  $Res call({String key, PointsRecord value});
 
   $PointsRecordCopyWith<$Res> get value;
 }
@@ -54,7 +59,7 @@ class _$ArtRecordCopyWithImpl<$Res, $Val extends ArtRecord>
       key: null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -78,7 +83,7 @@ abstract class _$$_ArtRecordCopyWith<$Res> implements $ArtRecordCopyWith<$Res> {
       __$$_ArtRecordCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int key, PointsRecord value});
+  $Res call({String key, PointsRecord value});
 
   @override
   $PointsRecordCopyWith<$Res> get value;
@@ -102,7 +107,7 @@ class __$$_ArtRecordCopyWithImpl<$Res>
       null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -112,12 +117,15 @@ class __$$_ArtRecordCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_ArtRecord implements _ArtRecord {
   _$_ArtRecord(this.key, this.value);
 
+  factory _$_ArtRecord.fromJson(Map<String, dynamic> json) =>
+      _$$_ArtRecordFromJson(json);
+
   @override
-  final int key;
+  final String key;
   @override
   final PointsRecord value;
 
@@ -135,6 +143,7 @@ class _$_ArtRecord implements _ArtRecord {
             (identical(other.value, value) || other.value == value));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, key, value);
 
@@ -143,13 +152,23 @@ class _$_ArtRecord implements _ArtRecord {
   @pragma('vm:prefer-inline')
   _$$_ArtRecordCopyWith<_$_ArtRecord> get copyWith =>
       __$$_ArtRecordCopyWithImpl<_$_ArtRecord>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ArtRecordToJson(
+      this,
+    );
+  }
 }
 
 abstract class _ArtRecord implements ArtRecord {
-  factory _ArtRecord(final int key, final PointsRecord value) = _$_ArtRecord;
+  factory _ArtRecord(final String key, final PointsRecord value) = _$_ArtRecord;
+
+  factory _ArtRecord.fromJson(Map<String, dynamic> json) =
+      _$_ArtRecord.fromJson;
 
   @override
-  int get key;
+  String get key;
   @override
   PointsRecord get value;
   @override

@@ -10,8 +10,9 @@ import 'package:map_artist/providers/database_provider.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class Preview extends HookConsumerWidget {
-  const Preview({super.key, required this.record});
+  const Preview({super.key, required this.record, this.localPreview = true});
   final ArtRecord record;
+  final bool localPreview;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,14 +32,14 @@ class Preview extends HookConsumerWidget {
             onPressed: (){Navigator.pop(context);},
             icon: const Icon(Icons.arrow_back, color: Colors.black,),),
         title: Text(record.value.title),
-        actions: [
+        actions: localPreview ? [
           IconButton(
             onPressed: (){
               pointsListNotifier.delete(record)
               .then((_) => Navigator.pushNamed(context, "/root"));
             },
             icon: const Icon(Icons.delete, color: Colors.black,),)
-        ],
+        ] : null
       ),
 
       body: GoogleMap(
@@ -55,7 +56,7 @@ class Preview extends HookConsumerWidget {
           points: pointsList,
         )},
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: localPreview? FloatingActionButton(
         child: const Icon(Icons.cloud_upload),
         onPressed: () {
           newPostRef.set(
@@ -71,7 +72,7 @@ class Preview extends HookConsumerWidget {
               )
           ));
         },
-      ),
+      ) : null
     );
   }
 }

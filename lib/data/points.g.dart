@@ -6,6 +6,17 @@ part of 'points.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$_ArtRecord _$$_ArtRecordFromJson(Map<String, dynamic> json) => _$_ArtRecord(
+      json['key'] as String,
+      PointsRecord.fromJson(json['value'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$_ArtRecordToJson(_$_ArtRecord instance) =>
+    <String, dynamic>{
+      'key': instance.key,
+      'value': instance.value,
+    };
+
 _$_PointsRecord _$$_PointsRecordFromJson(Map<String, dynamic> json) =>
     _$_PointsRecord(
       title: json['title'] as String,

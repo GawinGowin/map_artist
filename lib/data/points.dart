@@ -8,9 +8,10 @@ part 'points.g.dart';
 @freezed
 class ArtRecord with _$ArtRecord {
   factory ArtRecord(
-    int key,
+    String key,
     PointsRecord value,
   ) = _ArtRecord;
+  factory ArtRecord.fromJson(Map<String, dynamic> json) => _$ArtRecordFromJson(json);
 }
 
 @freezed
