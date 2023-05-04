@@ -26,6 +26,7 @@ class Record extends HookConsumerWidget {
         title: const Text('Your Data'),
         centerTitle: true,
         elevation: 10,
+        leading: const Icon(Icons.map),
         actions: [
           IconButton(
             icon: Icon(switchIcon),
