@@ -1,50 +1,56 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+import 'package:map_artist/pages/preview.dart';
+import 'package:map_artist/data/points.dart';
+
+import 'dart:async';
 
 class Firebase extends HookConsumerWidget {
   const Firebase({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final textEditingController = useTextEditingController();
+    final DatabaseReference databaseRef = FirebaseDatabase.instance.ref("artRecord");
 
-    void fire() async {
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-      final snapshot = await firestore.collection("pointsFirebase").get();
-      var msg = "";
-      snapshot.docChanges.forEach((element) {
-        final createdAt = element.doc.get("createdAt");
-        final points = element.doc.get("points");
-        final title = element.doc.get("title");
-        msg += "$title (${points[0]}, ${points[1]})";
-      });
-      textEditingController.text = msg;
-    }
+    final subscription = useState<StreamSubscription?>(null);
+    var points = useState<List<dynamic>>([]);
 
+    subscription.value = databaseRef.onValue.listen((DatabaseEvent event) {
+        final Object? snapShot = event.snapshot.value;
+        List<dynamic> snapShotList = (snapShot as List).where((element) => element != null).toList();
+        points.value = [...snapShotList];
+        // debugPrint("${snapShotList}");
+    });
+    useEffect(() {
+      return () {
+        subscription.value?.cancel();
+      };
+    }, []);
+    
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            const Text("RESOURCE ACCESS"),
-            const Padding(padding: EdgeInsets.all(10.0)),
-            TextField(
-              controller: textEditingController,
-              style: const TextStyle(fontSize: 24),
-              minLines: 1,
-              maxLines: 5,
+      body: points.value.isEmpty ? const Center(child: Text("クラウド上にデータはありません")):
+      ListView.builder(
+        itemCount: points.value.length,
+        padding: const EdgeInsets.all(16),
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            child: ListTile(
+              title: Text(points.value[index]["title"]),
+              subtitle: Text(
+                DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(points.value[index]["createdAt"]))
+              ),
+              trailing: IconButton(
+                icon: const Icon(Icons.map),
+                onPressed: () {
+                },
+              ),
             )
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          fire();
-        },
-        child: const Icon(Icons.open_in_new),
+          );
+        } 
       ),
     );
   }
