@@ -22,7 +22,7 @@ final themeNotifierProvider =
 );
 
 typedef _$ThemeNotifier = AutoDisposeNotifier<ThemeData>;
-String _$pointsNotifierHash() => r'0f63517ebb76923dd8e9702d6a0828b19a3b4e94';
+String _$pointsNotifierHash() => r'586cf3d51c907c61c63de7a32aeb547fd6c53db0';
 
 /// See also [PointsNotifier].
 @ProviderFor(PointsNotifier)

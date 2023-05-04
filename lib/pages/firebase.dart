@@ -14,17 +14,17 @@ class Firebase extends HookConsumerWidget {
   const Firebase({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final DatabaseReference databaseRef = FirebaseDatabase.instance.ref("artRecord");
+    final DatabaseReference databaseRef = FirebaseDatabase.instance.ref("artRecord/pointsRecord");
 
     final subscription = useState<StreamSubscription?>(null);
-    var points = useState<List<dynamic>>([]);
+    var points = useState<Map<dynamic, dynamic>>({});
 
     subscription.value = databaseRef.onValue.listen((DatabaseEvent event) {
         final Object? snapShot = event.snapshot.value;
-        List<dynamic> snapShotList = (snapShot as List).where((element) => element != null).toList();
-        points.value = [...snapShotList];
-        // debugPrint("${snapShotList}");
+        Map<dynamic, dynamic> snapShotMap = (snapShot as Map).map((key, value) =>  MapEntry(key.toString(), value));
+        points.value = {...snapShotMap};
     });
+
     useEffect(() {
       return () {
         subscription.value?.cancel();
@@ -37,11 +37,13 @@ class Firebase extends HookConsumerWidget {
         itemCount: points.value.length,
         padding: const EdgeInsets.all(16),
         itemBuilder: (BuildContext context, int index) {
+          final key = points.value.keys.elementAt(index);
+          final value = points.value[key];
           return Card(
             child: ListTile(
-              title: Text(points.value[index]["title"]),
+              title: Text(value["title"]),
               subtitle: Text(
-                DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(points.value[index]["createdAt"]))
+                DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(value["createdAt"]))
               ),
               trailing: IconButton(
                 icon: const Icon(Icons.map),

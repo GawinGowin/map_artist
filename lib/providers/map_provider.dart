@@ -26,8 +26,7 @@ class ThemeNotifier extends _$ThemeNotifier {
 class PointsNotifier extends _$PointsNotifier {
   @override
   List<LatLng> build() {
-    return [
-    ];
+    return [];
   }
 
   void addPointState(LatLng newPoint) {
@@ -36,7 +35,6 @@ class PointsNotifier extends _$PointsNotifier {
     state = newState;
   }
   void resetPointState() {
-    state = [
-    ];
+    state.clear();
   }
 }

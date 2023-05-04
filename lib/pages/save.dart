@@ -22,7 +22,6 @@ class SaveUI extends HookConsumerWidget {
     final pointsListNotifier = ref.watch(pointsListProvider.notifier);
 
     final List pointsList = points.map((e) => e.toJson()).toList();
-    final LatLng center = culcCenter(points);
     // final double zoomLevel = culcBestCamera(points);
     //final CameraUpdate cameraUpdate = CameraUpdate.newLatLngBounds(bounds, 50.0);
 
@@ -75,7 +74,7 @@ class SaveUI extends HookConsumerWidget {
                     child: GoogleMap(
                       zoomControlsEnabled: false,
                       initialCameraPosition: CameraPosition(
-                        target: center,
+                        target: culcCenter(points),
                         zoom: 13, // 0: 最も高い所から俯瞰(100*100)　21: 最も近い所から俯瞰
                       ),
                       polylines: {
@@ -97,9 +96,8 @@ class SaveUI extends HookConsumerWidget {
                         title: inputText.value,
                         points: pointsList,
                         createdAt: DateTime.now()),
-                    ).then((_) => ref.read(pointsNotifierProvider.notifier)
-                    .resetPointState())
-                    .then((_) => Navigator.pushNamed(context, "/home"));
+                    ).then((_) => ref.read(pointsNotifierProvider.notifier).resetPointState()
+                    ).then((_) => Navigator.pushNamed(context, "/root"));
                   },
                   child: const Text("Save"),
                 ),
