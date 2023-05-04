@@ -21,7 +21,8 @@ class Preview extends HookConsumerWidget {
     final LatLng center = culcCenter(pointsList);
     final pointsListNotifier = ref.watch(pointsListProvider.notifier);
 
-    final DatabaseReference databaseRef = FirebaseDatabase.instance.ref("artRecord/${record.key}");
+    final DatabaseReference databaseRef = FirebaseDatabase.instance.ref("artRecord/pointsRecord");
+    final DatabaseReference newPostRef = databaseRef.push();
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +58,7 @@ class Preview extends HookConsumerWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.cloud_upload),
         onPressed: () {
-          databaseRef.set(
+          newPostRef.set(
             record.value.toJson()
           ).then((_) => ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
