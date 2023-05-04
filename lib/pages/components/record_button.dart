@@ -39,6 +39,13 @@ class RecordButton extends HookConsumerWidget {
       }
     }
 
+    useEffect(() {
+      return () {
+        recording.value = false;
+        subscription.value.cancel();
+      };
+    }, []);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
